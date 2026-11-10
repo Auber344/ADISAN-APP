@@ -168,7 +168,7 @@
                 <!-- Proveedor -->
                 <RelativeLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginBottom="10dp">
                     <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Proveedor" android:textColor="#94A3B8" android:textSize="13sp" />
-                    <TextView id="@+id/tvDetalleProveedor" android:id="@+id/tvDetalleProveedor" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_alignParentEnd="true" android:text="SASH SAC" android:textColor="@color/white" android:textSize="13sp" android:textStyle="bold" />
+                    <TextView android:id="@+id/tvDetalleProveedor" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_alignParentEnd="true" android:text="SASH SAC" android:textColor="@color/white" android:textSize="13sp" android:textStyle="bold" />
                 </RelativeLayout>
 
                 <View android:layout_width="match_parent" android:layout_height="1dp" android:background="#1E293B" android:layout_marginBottom="10dp" />
@@ -176,7 +176,7 @@
                 <!-- Total -->
                 <RelativeLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginBottom="10dp">
                     <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Total" android:textColor="#94A3B8" android:textSize="13sp" />
-                    <TextView id="@+id/tvDetalleTotal" android:id="@+id/tvDetalleTotal" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_alignParentEnd="true" android:text="S/ 150.00" android:textColor="#F97316" android:textSize="14sp" android:textStyle="bold" />
+                    <TextView android:id="@+id/tvDetalleTotal" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_alignParentEnd="true" android:text="S/ 150.00" android:textColor="#F97316" android:textSize="14sp" android:textStyle="bold" />
                 </RelativeLayout>
 
                 <View android:layout_width="match_parent" android:layout_height="1dp" android:background="#1E293B" android:layout_marginBottom="10dp" />
@@ -184,7 +184,7 @@
                 <!-- Estado -->
                 <RelativeLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginBottom="10dp">
                     <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Estado" android:textColor="#94A3B8" android:textSize="13sp" />
-                    <TextView id="@+id/tvDetalleEstadoInfo" android:id="@+id/tvDetalleEstadoInfo" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_alignParentEnd="true" android:text="Completada" android:textColor="#10B981" android:textSize="13sp" android:textStyle="bold" />
+                    <TextView android:id="@+id/tvDetalleEstadoInfo" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_alignParentEnd="true" android:text="Completada" android:textColor="#10B981" android:textSize="13sp" android:textStyle="bold" />
                 </RelativeLayout>
 
                 <View android:layout_width="match_parent" android:layout_height="1dp" android:background="#1E293B" android:layout_marginBottom="10dp" />
@@ -192,7 +192,7 @@
                 <!-- Observación -->
                 <RelativeLayout android:layout_width="match_parent" android:layout_height="wrap_content">
                     <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Observación" android:textColor="#94A3B8" android:textSize="13sp" />
-                    <TextView id="@+id/tvDetalleObservacion" android:id="@+id/tvDetalleObservacion" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_alignParentEnd="true" android:text="-" android:textColor="@color/white" android:textSize="13sp" />
+                    <TextView android:id="@+id/tvDetalleObservacion" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_alignParentEnd="true" android:text="-" android:textColor="@color/white" android:textSize="13sp" />
                 </RelativeLayout>
 
             </LinearLayout>

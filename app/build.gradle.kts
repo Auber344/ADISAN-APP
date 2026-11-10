@@ -70,8 +70,8 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.espresso.core)
     // Revisión automática de accesibilidad (Accessibility Test Framework de Google)
-    androidTestImplementation("androidx.test.espresso:espresso-accessibility:3.7.0")
-    androidTestImplementation("com.google.guava:guava:33.4.0-android")
+    androidTestImplementation(libs.androidx.espresso.accessibility)
+    androidTestImplementation(libs.guava)
     androidTestImplementation(libs.androidx.junit)
 }
 tasks.configureEach {

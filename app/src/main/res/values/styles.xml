@@ -45,7 +45,9 @@
     <style name="Widget.Adisan.LoginFeature" parent="">
         <item name="android:gravity">center</item>
         <item name="android:drawablePadding">8dp</item>
-        <item name="android:paddingHorizontal">4dp</item>
+        <!-- REF-06: paddingHorizontal requiere API 26; paddingStart/End funcionan desde Android 7 (API 24) -->
+        <item name="android:paddingStart">4dp</item>
+        <item name="android:paddingEnd">4dp</item>
         <item name="android:textColor">@color/login_text_light</item>
         <item name="android:textSize">11sp</item>
         <item name="android:textStyle">bold</item>
