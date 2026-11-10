@@ -32,8 +32,9 @@ public class ItemCarrito {
         this.productoId = producto.getProductoId();
         this.productoNombre = producto.getProductoNombre();
         this.tipoVenta = tipoVenta != null ? tipoVenta : "UNIDAD";
-        this.cantidadPaquetes = cantidadPaquetes;
-        this.cantidadUnidades = cantidadUnidades;
+        // REF-01 (BUG-08): las cantidades nunca son negativas
+        this.cantidadPaquetes = Math.max(0, cantidadPaquetes);
+        this.cantidadUnidades = Math.max(0, cantidadUnidades);
         this.unidadesPorPaquete = producto.getUnidadesPorPaqueteVal();
 
         double pPaq = 0.0;
@@ -60,7 +61,7 @@ public class ItemCarrito {
         this.isOferta = true;
         this.ofertaId = oferta.getId();
         this.nombreOferta = oferta.getNombre();
-        this.cantidadOfertas = cantidadOfertas;
+        this.cantidadOfertas = Math.max(0, cantidadOfertas);
         this.precioFinalVisual = oferta.getPrecioFinalDouble();
 
         // Legacy compatibility
@@ -149,7 +150,7 @@ public class ItemCarrito {
     }
 
     public void setCantidadOfertas(int cantidadOfertas) {
-        if (isOferta) this.cantidadOfertas = cantidadOfertas;
+        if (isOferta) this.cantidadOfertas = Math.max(0, cantidadOfertas);
     }
 
     public double getPrecioFinalVisual() {
@@ -189,6 +190,7 @@ public class ItemCarrito {
     }
 
     public void setCantidad(int cantidad) {
+        cantidad = Math.max(0, cantidad);
         if (isOferta) {
             this.cantidadOfertas = cantidad;
         } else {

@@ -6,7 +6,6 @@ import static com.example.adisan_app_android.DatosPrueba.producto;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
-import org.junit.Ignore;
 import org.junit.Test;
 
 /** Pruebas unitarias PU-01 a PU-13 del catálogo de pruebas: clase ItemCarrito. */
@@ -88,8 +87,7 @@ public class ItemCarritoTest {
         assertEquals("OFERTA", item.getTipoVenta());
     }
 
-    // Posible defecto OBS-08: quite @Ignore para comprobarlo; hoy la prueba falla.
-    @Ignore("Defecto OBS-08: setCantidadOfertas acepta valores negativos")
+    // Verifica la corrección REF-01 del defecto BUG-08 (antes fallaba y estaba omitida con @Ignore).
     @Test
     public void pu12_cantidadDeOfertasNoDebeSerNegativa() {
         ItemCarrito item = new ItemCarrito(oferta(9, "15.90"), 1);
@@ -97,8 +95,7 @@ public class ItemCarritoTest {
         assertTrue("La cantidad de ofertas no debe ser negativa", item.getCantidadOfertas() >= 0);
     }
 
-    // Posible defecto OBS-08: quite @Ignore para comprobarlo; hoy la prueba falla.
-    @Ignore("Defecto OBS-08: el constructor acepta cantidades negativas")
+    // Verifica la corrección REF-01 del defecto BUG-08 (antes fallaba y estaba omitida con @Ignore).
     @Test
     public void pu13_constructorNoDebeAceptarCantidadesNegativas() {
         ItemCarrito item = new ItemCarrito(producto(1), "UNIDAD", 0, -3);
