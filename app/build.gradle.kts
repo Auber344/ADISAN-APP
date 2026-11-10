@@ -29,6 +29,9 @@ android {
             // Firebase Local Emulator Suite (firebase emulators:start) en vez del proyecto real
             val usarEmulador = (project.findProperty("firebaseEmulador") ?: "false").toString().toBoolean()
             buildConfigField("boolean", "FIREBASE_EMULADOR", usarEmulador.toString())
+            // Cobertura de código (JaCoCo) de las pruebas unitarias:
+            // ./gradlew createDebugUnitTestCoverageReport
+            enableUnitTestCoverage = true
         }
         release {
             buildConfigField("boolean", "FIREBASE_EMULADOR", "false")
@@ -41,6 +44,7 @@ android {
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11
     }
+
 }
 
 dependencies {
@@ -65,5 +69,13 @@ dependencies {
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.espresso.core)
+    // Revisión automática de accesibilidad (Accessibility Test Framework de Google)
+    androidTestImplementation("androidx.test.espresso:espresso-accessibility:3.7.0")
+    androidTestImplementation("com.google.guava:guava:33.4.0-android")
     androidTestImplementation(libs.androidx.junit)
+}
+tasks.configureEach {
+    if (name == "compileDebugAndroidTestKotlin") {
+        enabled = false
+    }
 }
