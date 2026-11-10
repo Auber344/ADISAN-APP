@@ -21,9 +21,8 @@
             android:id="@+id/btnVolverRegistro"
             android:layout_width="48dp"
             android:layout_height="48dp"
-            android:layout_marginStart="-12dp"
             android:background="?attr/selectableItemBackgroundBorderless"
-            android:contentDescription="@string/cancelar"
+            android:contentDescription="@string/registro_volver"
             android:padding="12dp"
             android:rotation="180"
             android:src="@drawable/ic_chevron_right"
@@ -215,6 +214,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
                         android:hint="@string/registro_password"
+                        app:endIconContentDescription="@string/registro_mostrar_password"
                         app:endIconMode="password_toggle"
                         app:endIconTint="@color/login_text_muted"
                         app:startIconDrawable="@drawable/ic_lock">
@@ -233,6 +233,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
                         android:hint="@string/registro_confirmar"
+                        app:endIconContentDescription="@string/registro_mostrar_confirmacion"
                         app:endIconMode="password_toggle"
                         app:endIconTint="@color/login_text_muted"
                         app:startIconDrawable="@drawable/ic_lock">
