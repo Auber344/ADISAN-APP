@@ -60,7 +60,7 @@ firebase/                  Reglas de Firestore, índices y script de datos de pr
 
 Las pruebas instrumentadas necesitan un emulador o dispositivo conectado. La prueba del flujo principal (inicio de sesión → producto → carrito) recibe la cuenta de prueba como argumentos y se omite si no se le pasan.
 
-Los casos de prueba y los defectos están registrados en los [issues del repositorio](https://github.com/Auber344/ADISAN-MOVIL/issues), enlazados con su requisito.
+Los casos de prueba y los defectos están registrados en los [issues del repositorio](https://github.com/Auber344/ADISAN-APP/issues), enlazados con su requisito.
 
 ## Autores
 
