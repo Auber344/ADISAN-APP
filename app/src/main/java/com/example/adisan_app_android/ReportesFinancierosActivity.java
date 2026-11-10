@@ -94,7 +94,7 @@ public class ReportesFinancierosActivity extends AppCompatActivity {
     private RecyclerView rvProductosRentabilidad;
     private ProductoRentabilidadAdapter productoRentabilidadAdapter;
 
-    private DistribucionIngresosChartView chartDistribucionIngresos;
+
     private TextView tvPctLacteos;
     private TextView tvPctAbarrotes;
     private TextView tvPctLimpieza;
@@ -151,7 +151,6 @@ public class ReportesFinancierosActivity extends AppCompatActivity {
         } else {
             activarSeccionResumen();
         }
-
         cargarDatosFinancierosReales();
     }
 
@@ -169,7 +168,7 @@ public class ReportesFinancierosActivity extends AppCompatActivity {
 
         tabResumen = findViewById(R.id.tabResumen);
         tabMovimientos = findViewById(R.id.tabMovimientos);
-        tabRentabilidad = findViewById(R.id.tabRentabilidad);
+
 
         tvValVentasPeriodo = findViewById(R.id.tvValVentasPeriodo);
         tvCountVentasPeriodo = findViewById(R.id.tvCountVentasPeriodo);
@@ -224,7 +223,7 @@ public class ReportesFinancierosActivity extends AppCompatActivity {
             });
         }
 
-        chartDistribucionIngresos = findViewById(R.id.chartDistribucionIngresos);
+
         tvPctLacteos = findViewById(R.id.tvPctLacteos);
         tvPctAbarrotes = findViewById(R.id.tvPctAbarrotes);
         tvPctLimpieza = findViewById(R.id.tvPctLimpieza);
@@ -823,9 +822,7 @@ public class ReportesFinancierosActivity extends AppCompatActivity {
             catChartList.add(new DistribucionIngresosChartView.CategoryData("Otros", montoOtros, coloresCat[4]));
         }
 
-        if (chartDistribucionIngresos != null) {
-            chartDistribucionIngresos.setData(catChartList, totalVentas);
-        }
+
 
         if (tvPctLacteos != null) tvPctLacteos.setText("35%");
         if (tvPctAbarrotes != null) tvPctAbarrotes.setText("28%");
