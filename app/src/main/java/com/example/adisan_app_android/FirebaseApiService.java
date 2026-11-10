@@ -390,7 +390,15 @@ public class FirebaseApiService implements ApiService {
             datos.put("telefono", campoTexto(b, "telefono"));
             datos.put("correo", campoTexto(b, "correo"));
             datos.put("direccion", campoTexto(b, "direccion"));
-            return crearConId(PROVEEDORES, datos).continueWith(t ->
+            String ruc = texto(datos.get("ruc"));
+            if (!ruc.isEmpty() && !Validaciones.rucValido(ruc)) throw new ErrorNegocio(400, "El RUC debe tener 11 dígitos numéricos");
+            // REF-04 (BUG-03): el RUC no se puede repetir (RN-04)
+            return verificarUnico(PROVEEDORES, "ruc", ruc, null, "Ya existe un proveedor con ese RUC")
+                    .continueWithTask(t -> {
+                        t.getResult();
+                        return crearConId(PROVEEDORES, datos);
+                    })
+                    .continueWith(t ->
                     respuesta(ProveedorResponse.class, Collections.singletonList(conNombreEmpresa(t.getResult())), "Proveedor registrado"));
         });
     }
