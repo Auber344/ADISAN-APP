@@ -955,29 +955,30 @@ public class DashboardActivity extends AppCompatActivity {
                     esValido = false;
                 }
 
-                if (TextUtils.isEmpty(dni) || dni.length() != 8) {
+                // REF-03: reglas compartidas en Validaciones
+                if (!Validaciones.dniValido(dni)) {
                     if (tilDni != null) tilDni.setError("El DNI debe tener 8 dígitos numéricos");
                     esValido = false;
                 }
 
-                if (TextUtils.isEmpty(telefono) || telefono.length() < 7) {
+                if (!Validaciones.telefonoValido(telefono)) {
                     if (tilTelefono != null) tilTelefono.setError("Ingresa un número de teléfono válido");
                     esValido = false;
                 }
 
-                if (TextUtils.isEmpty(correo) || !correo.contains("@")) {
+                if (!Validaciones.correoValido(correo)) {
                     if (tilCorreo != null) tilCorreo.setError("Ingresa un correo electrónico válido");
                     esValido = false;
                 }
 
-                if (TextUtils.isEmpty(username) || username.length() < 3) {
-                    if (tilUsername != null) tilUsername.setError("El usuario debe tener al menos 3 caracteres");
+                if (!Validaciones.usuarioValido(username)) {
+                    if (tilUsername != null) tilUsername.setError("El usuario debe tener al menos " + Validaciones.MIN_USUARIO + " caracteres");
                     esValido = false;
                 }
 
                 if (!esEdicion) {
-                    if (TextUtils.isEmpty(password) || password.length() < 8) {
-                        if (tilPassword != null) tilPassword.setError("La contraseña debe tener al menos 8 caracteres");
+                    if (!Validaciones.passwordValida(password)) {
+                        if (tilPassword != null) tilPassword.setError(Validaciones.mensajePasswordCorta());
                         esValido = false;
                     }
                     if (TextUtils.isEmpty(confirmPassword)) {
@@ -1287,17 +1288,18 @@ public class DashboardActivity extends AppCompatActivity {
                     esValido = false;
                 }
 
-                if (TextUtils.isEmpty(ruc) || ruc.length() != 11) {
+                // REF-03: reglas compartidas en Validaciones
+                if (!Validaciones.rucValido(ruc)) {
                     if (tilRuc != null) tilRuc.setError("El RUC debe tener 11 dígitos numéricos");
                     esValido = false;
                 }
 
-                if (TextUtils.isEmpty(telefono) || telefono.length() < 7) {
+                if (!Validaciones.telefonoValido(telefono)) {
                     if (tilTelefono != null) tilTelefono.setError("Ingresa un número de teléfono válido");
                     esValido = false;
                 }
 
-                if (TextUtils.isEmpty(correo) || !correo.contains("@")) {
+                if (!Validaciones.correoValido(correo)) {
                     if (tilCorreo != null) tilCorreo.setError("Ingresa un correo electrónico válido");
                     esValido = false;
                 }

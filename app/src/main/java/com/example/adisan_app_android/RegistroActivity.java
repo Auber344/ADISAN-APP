@@ -3,7 +3,6 @@ package com.example.adisan_app_android;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.util.Patterns;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.TextView;
@@ -84,10 +83,11 @@ public class RegistroActivity extends AppCompatActivity {
         boolean valido = true;
         if (nombres.isEmpty()) valido = error(tilNombres, R.string.registro_campo_obligatorio);
         if (apellidos.isEmpty()) valido = error(tilApellidos, R.string.registro_campo_obligatorio);
-        if (!dni.matches("\\d{8}")) valido = error(tilDni, R.string.registro_dni_invalido);
-        if (!telefono.replaceAll("[\\s+-]", "").matches("\\d{6,15}")) valido = error(tilTelefono, R.string.registro_telefono_invalido);
-        if (!Patterns.EMAIL_ADDRESS.matcher(correo).matches()) valido = error(tilCorreo, R.string.error_correo_invalido);
-        if (password.length() < 6) valido = error(tilPassword, R.string.registro_password_corta);
+        // REF-03: reglas compartidas en Validaciones (contraseña mínima de 8 caracteres, igual que el administrador)
+        if (!Validaciones.dniValido(dni)) valido = error(tilDni, R.string.registro_dni_invalido);
+        if (!Validaciones.telefonoValido(telefono)) valido = error(tilTelefono, R.string.registro_telefono_invalido);
+        if (!Validaciones.correoValido(correo)) valido = error(tilCorreo, R.string.error_correo_invalido);
+        if (!Validaciones.passwordValida(password)) valido = error(tilPassword, R.string.registro_password_corta);
         else if (!password.equals(confirmar)) valido = error(tilConfirmar, R.string.registro_password_distinta);
         if (!valido) return;
 

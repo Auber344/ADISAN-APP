@@ -124,7 +124,7 @@ public class FirebaseApiService implements ApiService {
             if (texto(datos.get("nombres")).isEmpty()) throw new ErrorNegocio(400, "Ingresa tus nombres");
             if (texto(datos.get("dni")).isEmpty()) throw new ErrorNegocio(400, "Ingresa tu DNI");
             if (correo.isEmpty()) throw new ErrorNegocio(400, "Ingresa tu correo");
-            if (password.length() < 6) throw new ErrorNegocio(400, "La contraseña debe tener al menos 6 caracteres");
+            if (!Validaciones.passwordValida(password)) throw new ErrorNegocio(400, Validaciones.mensajePasswordCorta());
             if (texto(datos.get("usuario")).isEmpty()) datos.put("usuario", correo);
 
             return auth.createUserWithEmailAndPassword(correo, password).continueWithTask(tCuenta -> {
@@ -270,8 +270,8 @@ public class FirebaseApiService implements ApiService {
             if (texto(datos.get("nombres")).isEmpty()) throw new ErrorNegocio(400, "Ingresa los nombres");
             if (texto(datos.get("dni")).isEmpty()) throw new ErrorNegocio(400, "Ingresa el DNI");
             boolean conAcceso = !correo.isEmpty() && !password.isEmpty();
-            if (conAcceso && password.length() < 6) {
-                throw new ErrorNegocio(400, "La contraseña debe tener al menos 6 caracteres");
+            if (conAcceso && !Validaciones.passwordValida(password)) {
+                throw new ErrorNegocio(400, Validaciones.mensajePasswordCorta());
             }
 
             return verificarUnico(USUARIOS, "dni", datos.get("dni"), null, "Ya existe un usuario con ese DNI")

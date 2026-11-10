@@ -42,7 +42,7 @@
     <string name="registro_dni">DNI</string>
     <string name="registro_telefono">Celular</string>
     <string name="registro_direccion">Dirección de entrega (opcional)</string>
-    <string name="registro_password">Contraseña (mínimo 6 caracteres)</string>
+    <string name="registro_password">Contraseña (mínimo 8 caracteres)</string>
     <string name="registro_confirmar">Repite la contraseña</string>
     <string name="registro_boton">Crear cuenta</string>
     <string name="registro_cargando">Creando cuenta…</string>
@@ -50,7 +50,7 @@
     <string name="registro_campo_obligatorio">Campo obligatorio</string>
     <string name="registro_dni_invalido">El DNI tiene 8 dígitos</string>
     <string name="registro_telefono_invalido">Ingresa un número válido</string>
-    <string name="registro_password_corta">Debe tener al menos 6 caracteres</string>
+    <string name="registro_password_corta">Debe tener al menos 8 caracteres</string>
     <string name="registro_password_distinta">Las contraseñas no coinciden</string>
 
     <!-- Dashboard -->

@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.util.Patterns;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
@@ -127,7 +126,7 @@ public class LoginActivity extends AppCompatActivity {
         if (TextUtils.isEmpty(correo)) {
             tilCorreo.setError(getString(R.string.error_empty_correo));
             valido = false;
-        } else if (!Patterns.EMAIL_ADDRESS.matcher(correo).matches()) {
+        } else if (!Validaciones.correoValido(correo)) {
             tilCorreo.setError(getString(R.string.error_correo_invalido));
             valido = false;
         }
@@ -192,7 +191,7 @@ public class LoginActivity extends AppCompatActivity {
 
         dialogo.setOnShowListener(d -> dialogo.getButton(androidx.appcompat.app.AlertDialog.BUTTON_POSITIVE).setOnClickListener(v -> {
             String correo = texto(etEmail);
-            if (!Patterns.EMAIL_ADDRESS.matcher(correo).matches()) {
+            if (!Validaciones.correoValido(correo)) {
                 tilEmail.setError(getString(R.string.error_correo_invalido));
                 return;
             }

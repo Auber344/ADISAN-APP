@@ -149,7 +149,7 @@ public class FirebaseCall<T> implements Call<T> {
 
     static String mensajeAuth(FirebaseAuthException e) {
         if (e instanceof FirebaseAuthUserCollisionException) return "Ese correo ya tiene una cuenta registrada";
-        if (e instanceof FirebaseAuthWeakPasswordException) return "La contraseña debe tener al menos 6 caracteres";
+        if (e instanceof FirebaseAuthWeakPasswordException) return Validaciones.mensajePasswordCorta();
         if (e instanceof FirebaseAuthInvalidUserException) return "La cuenta no existe o fue deshabilitada";
         if (e instanceof FirebaseAuthInvalidCredentialsException) return "Correo o contraseña incorrectos";
         return "Error de autenticación: " + e.getMessage();
