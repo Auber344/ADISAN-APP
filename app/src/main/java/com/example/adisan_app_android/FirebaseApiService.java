@@ -69,9 +69,6 @@ public class FirebaseApiService implements ApiService {
     /** Mismo umbral que usan InventarioActivity e InventarioAdapter para marcar stock bajo. */
     private static final int STOCK_BAJO = 10;
 
-    private static final List<String> ESTADOS_PEDIDO =
-            Arrays.asList("pendiente", "aceptado", "en_camino", "entregado", "cancelado");
-
     /** Campos de dinero: se envían a los modelos como texto con 2 decimales. */
     private static final Set<String> CAMPOS_DINERO = new HashSet<>(Arrays.asList(
             "total", "precio", "subtotal", "precio_compra_paquete", "precio_venta_paquete",
@@ -580,8 +577,8 @@ public class FirebaseApiService implements ApiService {
     @Override
     public Call<PedidoResponse> editarPedido(int id, Pedido pedido) {
         return llamada(() -> {
-            String nuevoEstado = pedido.getEstado() != null ? pedido.getEstado().trim().toLowerCase(Locale.ROOT) : "";
-            if (!ESTADOS_PEDIDO.contains(nuevoEstado)) throw new ErrorNegocio(400, "Estado de pedido no válido");
+            String nuevoEstado = TransicionesPedido.normalizar(pedido.getEstado());
+            if (!TransicionesPedido.esEstadoValido(nuevoEstado)) throw new ErrorNegocio(400, "Estado de pedido no válido");
             String fechaEntrega = pedido.getFechaEstimadaEntrega();
             DocumentReference ref = db.collection(PEDIDOS).document(String.valueOf(id));
 
@@ -592,8 +589,11 @@ public class FirebaseApiService implements ApiService {
                     if (!snap.exists()) throw new ErrorNegocio(404, "El pedido no existe");
                     String anterior = texto(snap.get("estado"));
                     Map<String, Object> resultado = datos(snap);
-                    if (nuevoEstado.equals(anterior) && fechaEntrega == null) return resultado;
-                    if ("cancelado".equals(anterior)) throw new ErrorNegocio(400, "El pedido ya fue cancelado");
+                    if (nuevoEstado.equals(TransicionesPedido.normalizar(anterior)) && fechaEntrega == null) return resultado;
+                    // REF-02 (BUG-01): solo se permiten las transiciones de RN-12; entregado y cancelado son finales
+                    if (!TransicionesPedido.puedeCambiar(anterior, nuevoEstado)) {
+                        throw new ErrorNegocio(400, TransicionesPedido.mensajeRechazo(anterior, nuevoEstado));
+                    }
 
                     Map<String, Object> cambios = new HashMap<>();
                     cambios.put("estado", nuevoEstado);
