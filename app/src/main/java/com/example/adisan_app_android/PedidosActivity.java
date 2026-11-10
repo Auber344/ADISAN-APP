@@ -44,6 +44,9 @@ import retrofit2.Response;
 
 public class PedidosActivity extends AppCompatActivity {
 
+    private static final String TAG = "PedidosActivity";
+    private static final String MENSAJE_ERROR = "No se pudieron cargar los pedidos. Inténtalo de nuevo.";
+
     private ProgressBar pbLoading;
     private LinearLayout layoutVacio;
     private LinearLayout layoutError;
@@ -69,49 +72,49 @@ public class PedidosActivity extends AppCompatActivity {
         try {
             setContentView(R.layout.activity_pedidos);
         } catch (Throwable e) {
-            Toast.makeText(this, "CRASH setContentView: " + e.getMessage(), Toast.LENGTH_LONG).show();
+            reportarError("setContentView", e);
             return;
         }
 
         try {
             initViews();
         } catch (Throwable e) {
-            Toast.makeText(this, "CRASH initViews: " + e.getMessage(), Toast.LENGTH_LONG).show();
+            reportarError("initViews", e);
             return;
         }
 
         try {
             setupWindowInsets();
         } catch (Throwable e) {
-            Toast.makeText(this, "CRASH setupWindowInsets: " + e.getMessage(), Toast.LENGTH_LONG).show();
+            reportarError("setupWindowInsets", e);
             return;
         }
 
         try {
             setupRecyclerView();
         } catch (Throwable e) {
-            Toast.makeText(this, "CRASH setupRecyclerView: " + e.getMessage(), Toast.LENGTH_LONG).show();
+            reportarError("setupRecyclerView", e);
             return;
         }
 
         try {
             setupListeners();
         } catch (Throwable e) {
-            Toast.makeText(this, "CRASH setupListeners: " + e.getMessage(), Toast.LENGTH_LONG).show();
+            reportarError("setupListeners", e);
             return;
         }
 
         try {
             configurarTituloPorRol();
         } catch (Throwable e) {
-            Toast.makeText(this, "CRASH configurarTituloPorRol: " + e.getMessage(), Toast.LENGTH_LONG).show();
+            reportarError("configurarTituloPorRol", e);
             return;
         }
 
         try {
             cargarPedidos();
         } catch (Throwable e) {
-            Toast.makeText(this, "CRASH cargarPedidos: " + e.getMessage(), Toast.LENGTH_LONG).show();
+            reportarError("onCreate.cargarPedidos", e);
         }
     }
 
@@ -294,8 +297,7 @@ public class PedidosActivity extends AppCompatActivity {
                             cargarPedidosListaDirecta();
                         }
                     } catch (Throwable e) {
-                        android.util.Log.e("CRASH_DEBUG", "CRASH in onResponse: " + e.getMessage(), e);
-                        Toast.makeText(PedidosActivity.this, "CRASH onResponse: " + e.getClass().getSimpleName() + " - " + e.getMessage(), Toast.LENGTH_LONG).show();
+                        reportarError("cargarPedidos.onResponse", e);
                     }
                 }
 
@@ -304,12 +306,12 @@ public class PedidosActivity extends AppCompatActivity {
                     try {
                         cargarPedidosListaDirecta();
                     } catch (Throwable e) {
-                        Toast.makeText(PedidosActivity.this, "CRASH onFailure: " + e.getMessage(), Toast.LENGTH_LONG).show();
+                        reportarError("cargarPedidos.onFailure", e);
                     }
                 }
             });
         } catch (Throwable e) {
-            Toast.makeText(this, "CRASH cargarPedidos: " + e.getMessage(), Toast.LENGTH_LONG).show();
+            reportarError("cargarPedidos", e);
         }
     }
 
@@ -337,8 +339,7 @@ public class PedidosActivity extends AppCompatActivity {
                             mostrarEstadoError("Error en el servidor (" + response.code() + ")");
                         }
                     } catch (Throwable e) {
-                        android.util.Log.e("CRASH_DEBUG", "CRASH in DirectList onResponse: " + e.getMessage(), e);
-                        Toast.makeText(PedidosActivity.this, "CRASH DirectList onResponse: " + e.getClass().getSimpleName() + " - " + e.getMessage(), Toast.LENGTH_LONG).show();
+                        reportarError("cargarPedidosListaDirecta.onResponse", e);
                     }
                 }
 
@@ -348,12 +349,12 @@ public class PedidosActivity extends AppCompatActivity {
                         ocultarSwipeRefresh();
                         mostrarEstadoError("Sin conexión a internet. Revisa tu red e inténtalo de nuevo.");
                     } catch (Throwable e) {
-                        Toast.makeText(PedidosActivity.this, "CRASH DirectList onFailure: " + e.getMessage(), Toast.LENGTH_LONG).show();
+                        reportarError("cargarPedidosListaDirecta.onFailure", e);
                     }
                 }
             });
         } catch (Throwable e) {
-            Toast.makeText(this, "CRASH cargarPedidosListaDirecta: " + e.getMessage(), Toast.LENGTH_LONG).show();
+            reportarError("cargarPedidosListaDirecta", e);
         }
     }
 
@@ -987,6 +988,15 @@ public class PedidosActivity extends AppCompatActivity {
         if (rvPedidos != null) rvPedidos.setVisibility(View.GONE);
         if (layoutError != null) layoutError.setVisibility(View.GONE);
         if (layoutVacio != null) layoutVacio.setVisibility(View.VISIBLE);
+    }
+
+    /**
+     * REF-05 (BUG-06): el detalle técnico del error va a Logcat y el usuario ve un mensaje comprensible
+     * (antes se mostraban avisos "CRASH ..." con el nombre de la excepción).
+     */
+    private void reportarError(String contexto, Throwable e) {
+        android.util.Log.e(TAG, contexto, e);
+        Toast.makeText(this, MENSAJE_ERROR, Toast.LENGTH_LONG).show();
     }
 
     private void mostrarEstadoError(String mensaje) {
