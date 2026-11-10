@@ -43,6 +43,7 @@ public class LoginValidacionTest {
     }
 
     @Test
+    @Trazabilidad(caso = "PF-02", rf = "RF-01", hu = "HU-01", ca = "CA-01.3")
     public void pf02_correoVacioMuestraError() {
         onView(withId(R.id.etCorreo)).perform(clearText());
         onView(withId(R.id.etPassword)).perform(typeText("cualquiera"), closeSoftKeyboard());
@@ -52,6 +53,7 @@ public class LoginValidacionTest {
     }
 
     @Test
+    @Trazabilidad(caso = "PF-03", rf = "RF-01", hu = "HU-01", ca = "CA-01.3")
     public void pf03_correoConFormatoInvalidoMuestraError() {
         onView(withId(R.id.etCorreo)).perform(typeText("ana@correo"), closeSoftKeyboard());
         onView(withId(R.id.etPassword)).perform(typeText("cualquiera"), closeSoftKeyboard());
@@ -61,6 +63,7 @@ public class LoginValidacionTest {
     }
 
     @Test
+    @Trazabilidad(caso = "PF-04", rf = "RF-01", hu = "HU-01", ca = "CA-01.3")
     public void pf04_contrasenaVaciaMuestraError() {
         onView(withId(R.id.etCorreo)).perform(typeText("cliente@adisan.pe"), closeSoftKeyboard());
         onView(withId(R.id.btnLogin)).perform(click());

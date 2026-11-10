@@ -77,6 +77,7 @@ public class FlujoPrincipalTest {
     }
 
     @Test
+    @Trazabilidad(caso = "PF-FLUJO-01", rf = "RF-01, RF-06, RF-23", hu = "HU-01, HU-08, HU-09", ca = "CA-01.1, CA-08.3, CA-09.1")
     public void flujoPrincipal_loginCatalogoYCarrito() {
         assumeTrue("Faltan los argumentos 'correo' y 'password'",
                 !TextUtils.isEmpty(correo) && !TextUtils.isEmpty(password));
@@ -91,6 +92,7 @@ public class FlujoPrincipalTest {
 
         // Paso 3: se abre el Dashboard
         Espera.hastaQueSeVea(withId(R.id.bottomNavigation), ESPERA_FIREBASE);
+        RevisorAccesibilidad.revisarPantallaActual("Dashboard");   // PAC-AUTO-03 (Logcat ADISAN_A11Y)
 
         // Paso 4: ir al catálogo de productos. El título depende del rol guardado al iniciar sesión:
         // "Comprar productos" para el cliente y "Vender productos" para vendedor o administrador.
@@ -104,6 +106,7 @@ public class FlujoPrincipalTest {
         // Paso 5: buscar el producto y esperar a que cargue desde Firestore
         onView(withId(R.id.etBuscarProducto)).perform(replaceText(producto), closeSoftKeyboard());
         Espera.hastaQueSeVea(allOf(withId(R.id.tvNombreProducto), withText(producto)), ESPERA_FIREBASE);
+        RevisorAccesibilidad.revisarPantallaActual("Productos");   // PAC-AUTO-04
 
         // Paso 6: agregar el producto al carrito (1 paquete)
         onView(allOf(withId(R.id.btnAgregarCarrito),
@@ -119,5 +122,6 @@ public class FlujoPrincipalTest {
         onView(allOf(withId(R.id.tvNombreItemCarrito), withText(producto))).check(matches(isDisplayed()));
         onView(withId(R.id.tvTotalCarritoCalculado)).check(matches(withText(precio)));
         onView(withId(R.id.layoutCarritoVacio)).check(matches(not(isDisplayed())));
+        RevisorAccesibilidad.revisarPantallaActual("Carrito");     // PAC-AUTO-05
     }
 }
